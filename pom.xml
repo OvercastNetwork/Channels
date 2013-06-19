@@ -57,6 +57,8 @@
     <properties>
         <!-- The prefix to use when logging to the console -->
         <plugin.prefix>Channels</plugin.prefix>
+        <!-- The main class -->
+        <plugin.mainClass>com.github.rmsy.channels.ChannelsPlugin</plugin.mainClass>
     </properties>
 
     <dependencies>
@@ -65,16 +67,6 @@
             <artifactId>bukkit</artifactId>
             <version>1.5.2-R0.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>command-framework-core</artifactId>
-            <version>0.4-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>command-framework-bukkit</artifactId>
-            <version>0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
@@ -89,16 +81,6 @@
             <id>bukkit-repo</id>
             <name>Bukkit repo</name>
             <url>http://repo.bukkit.org/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>overcast-repo</id>
-            <name>Overcast Network repo</name>
-            <url>http://repo.oc.tc/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>sk89q-repo</id>
-            <name>sk89q repo</name>
-            <url>http://maven.sk89q.com/repo/</url>
         </repository>
         <repository>
             <id>mcstats-repo</id>
