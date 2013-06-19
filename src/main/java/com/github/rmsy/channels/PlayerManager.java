@@ -33,4 +33,22 @@ public interface PlayerManager {
      * @param membershipChannel The channel the player is a member of.
      */
     public void setMembershipChannel(@Nonnull final Player player, @Nonnull Channel membershipChannel);
+
+    /**
+     * Adds the player as a listener of the specified channel.
+     *
+     * @param player  The player.
+     * @param channel The channel.
+     * @return Whether or not the player was added as a listener.
+     */
+    public boolean addListener(@Nonnull final Player player, @Nonnull final Channel channel);
+
+    /**
+     * Removes the player as a listener from the specified channel.
+     *
+     * @param player  The player.
+     * @param channel The channel.
+     * @return Whether or not the player was removed as a listener.
+     */
+    public boolean removeListener(@Nonnull final Player player, @Nonnull final Channel channel);
 }

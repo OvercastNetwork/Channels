@@ -53,30 +53,13 @@ public final class SimpleChannel implements Channel {
      * @param format            The format to be applied to messages.
      * @param shouldStripColors Whether or not to strip messages of colors.
      * @param consoleListening  Whether or not the console is listening.
-     * @param listeners         Initial listeners to add (or null).
      */
-    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, boolean consoleListening, @Nullable final Set<Player> listeners) {
+    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, boolean consoleListening) {
         this.format = Preconditions.checkNotNull(format, "format");
         this.shouldStripColors = shouldStripColors;
         this.consoleListening = consoleListening;
         this.listeners = new HashSet<Player>();
-        if (listeners != null) {
-            for (Player listener : listeners) {
-                this.addListener(listener);
-            }
-        }
         this.members = new HashSet<Player>();
-    }
-
-    /**
-     * Creates a new SimpleChannel.
-     *
-     * @param format            The format to be applied to messages.
-     * @param shouldStripColors Whether or not to strip messages of colors.
-     * @param consoleListening  Whether or not the console is listening.
-     */
-    public SimpleChannel(@Nonnull final String format, final boolean shouldStripColors, boolean consoleListening) {
-        this(format, shouldStripColors, consoleListening, null);
     }
 
     /**
@@ -127,16 +110,6 @@ public final class SimpleChannel implements Channel {
     }
 
     /**
-     * Adds a user as a listener.
-     *
-     * @param listener The user.
-     */
-    @Override
-    public void addListener(@Nonnull Player listener) {
-        this.listeners.add(Preconditions.checkNotNull(listener, "listener"));
-    }
-
-    /**
      * Gets whether or not messages sent are stripped of color.
      *
      * @return Whether or not messages sent are stripped of color.
@@ -154,16 +127,6 @@ public final class SimpleChannel implements Channel {
     @Override
     public void shouldStripColors(boolean shouldStripColors) {
         this.shouldStripColors = shouldStripColors;
-    }
-
-    /**
-     * Removes a user as a listener.
-     *
-     * @param listener The user.
-     */
-    @Override
-    public void removeListener(@Nonnull Player listener) {
-        this.listeners.remove(Preconditions.checkNotNull(listener, "listener"));
     }
 
     /**
@@ -226,6 +189,24 @@ public final class SimpleChannel implements Channel {
     @Override
     public void setConsoleListening(boolean listening) {
         this.consoleListening = listening;
+    }
+
+    /**
+     * Adds a user as a listener.
+     *
+     * @param listener The user.
+     */
+    protected void addListener(@Nonnull Player listener) {
+        this.listeners.add(Preconditions.checkNotNull(listener, "listener"));
+    }
+
+    /**
+     * Removes a user as a listener.
+     *
+     * @param listener The user.
+     */
+    protected void removeListener(@Nonnull Player listener) {
+        this.listeners.remove(Preconditions.checkNotNull(listener, "listener"));
     }
 
     /**

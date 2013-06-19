@@ -47,13 +47,6 @@ public interface Channel {
     public Set<Player> getListeners();
 
     /**
-     * Adds a user as a listener.
-     *
-     * @param listener The user.
-     */
-    public void addListener(@Nonnull final Player listener);
-
-    /**
      * Gets whether or not messages sent are stripped of color.
      *
      * @return Whether or not messages sent are stripped of color.
@@ -66,13 +59,6 @@ public interface Channel {
      * @param shouldStripColors Whether or not messages sent are stripped of color.
      */
     public void shouldStripColors(boolean shouldStripColors);
-
-    /**
-     * Removes a user as a listener (and as a member, if they are one).
-     *
-     * @param listener The user.
-     */
-    public void removeListener(@Nonnull final Player listener);
 
     /**
      * Sends a new message to the channel.

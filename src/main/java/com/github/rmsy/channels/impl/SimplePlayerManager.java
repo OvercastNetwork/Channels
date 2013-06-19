@@ -2,7 +2,10 @@ package com.github.rmsy.channels.impl;
 
 import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.PlayerManager;
+import com.github.rmsy.channels.event.ChannelListenEvent;
+import com.github.rmsy.channels.event.ChannelUnListenEvent;
 import com.google.common.base.Preconditions;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -40,7 +43,7 @@ public class SimplePlayerManager implements PlayerManager {
      * @return The channel the player is a member of.
      */
     @Override
-    public Channel getMembershipChannel(@Nonnull Player player) {
+    public Channel getMembershipChannel(@Nonnull final Player player) {
         return this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
     }
 
@@ -52,7 +55,7 @@ public class SimplePlayerManager implements PlayerManager {
      */
     @Nonnull
     @Override
-    public Set<Channel> getListeningChannels(@Nonnull Player player) {
+    public Set<Channel> getListeningChannels(@Nonnull final Player player) {
         Set<Channel> channels = this.playerListeningMap.get(Preconditions.checkNotNull(player, "player"));
         if (channels == null) {
             channels = new HashSet<Channel>();
@@ -81,13 +84,46 @@ public class SimplePlayerManager implements PlayerManager {
      *
      * @param player  The player.
      * @param channel The channel.
+     * @return Whether or not the player was added as a listener.
      */
-    protected void addListener(@Nonnull final Player player, @Nonnull final Channel channel) {
-        Set<Channel> channels = this.playerListeningMap.get(Preconditions.checkNotNull(player, "player"));
-        if (channels == null) {
-            channels = new HashSet<Channel>();
+    @Override
+    public boolean addListener(@Nonnull final Player player, @Nonnull final Channel channel) {
+        ChannelListenEvent event = new ChannelListenEvent(Preconditions.checkNotNull(channel, "channel"), Preconditions.checkNotNull(player, "player"));
+        Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            Set<Channel> channels = this.playerListeningMap.get(player);
+            if (channels == null) {
+                channels = new HashSet<Channel>();
+            }
+            channels.add(channel);
+            this.playerListeningMap.put(player, channels);
+            ((SimpleChannel) channel).addListener(player);
+            return true;
+        } else {
+            return false;
         }
-        channels.add(channel);
-        this.playerListeningMap.put(player, channels);
+    }
+
+    /**
+     * Removes the player as a listener from the specified channel.
+     *
+     * @param player  The player.
+     * @param channel The channel.
+     * @return Whether or not the player was removed as a listener.
+     */
+    @Override
+    public boolean removeListener(@Nonnull Player player, @Nonnull Channel channel) {
+        ChannelUnListenEvent event = new ChannelUnListenEvent(Preconditions.checkNotNull(channel, "channel"), Preconditions.checkNotNull(player, "player"));
+        Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            Set<Channel> channels = this.playerListeningMap.get(player);
+            if (channels != null) {
+                channels.remove(channel);
+            }
+            ((SimpleChannel) channel).removeListener(player);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
