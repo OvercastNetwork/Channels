@@ -5,3 +5,4 @@ author: rmsy
 website: ${url}
 main: ${plugin.mainClass}
 prefix: ${plugin.prefix}
+
