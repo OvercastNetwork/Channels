@@ -2,6 +2,7 @@ package com.github.rmsy.channels.listener;
 
 import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.ChannelsPlugin;
+import com.github.rmsy.channels.PlayerManager;
 import com.google.common.base.Preconditions;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,7 +39,8 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(@Nonnull final PlayerJoinEvent event) {
         Channel globalChannel = this.plugin.getGlobalChannel();
         Player player = Preconditions.checkNotNull(event, "event").getPlayer();
-        this.plugin.getPlayerManager().setMembershipChannel(player, globalChannel);
-        globalChannel.addListener(player);
+        PlayerManager manager = this.plugin.getPlayerManager();
+        manager.setMembershipChannel(player, globalChannel);
+        manager.addListener(player, globalChannel);
     }
 }
