@@ -11,7 +11,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 /**
  * Simple implementation of {@link Channel}.
@@ -27,10 +26,6 @@ public final class SimpleChannel implements Channel {
      * The permission node that will be broadcast from this channel to.
      */
     private final String permission;
-    /**
-     * Whether or not the console is listening.
-     */
-    private boolean consoleListening;
     /**
      * The format.
      */
@@ -51,13 +46,11 @@ public final class SimpleChannel implements Channel {
      *
      * @param format            The format to be applied to messages.
      * @param shouldStripColors Whether or not to strip messages of colors.
-     * @param consoleListening  Whether or not the console is listening.
      * @param permission        The permission node that will be broadcast from this channel to.
      */
-    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, boolean consoleListening, @Nonnull final String permission) {
+    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, @Nonnull final String permission) {
         this.format = Preconditions.checkNotNull(format, "format");
         this.shouldStripColors = shouldStripColors;
-        this.consoleListening = consoleListening;
         this.permission = Preconditions.checkNotNull(permission);
         this.members = new HashSet<Player>();
     }
@@ -148,34 +141,11 @@ public final class SimpleChannel implements Channel {
         ChannelMessageEvent event = new ChannelMessageEvent(message, sender);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            if (this.consoleListening) {
-                Bukkit.getLogger().log(Level.INFO, "[CHAT] " + message);
-            }
             Bukkit.broadcast(message, this.permission);
             return true;
         } else {
             return false;
         }
-    }
-
-    /**
-     * Gets whether or not the console is listening to this channel.
-     *
-     * @return Whether or not the console is listening to this channel.
-     */
-    @Override
-    public boolean isConsoleListening() {
-        return this.consoleListening;
-    }
-
-    /**
-     * Sets whether or not the console is listening to this channel.
-     *
-     * @param listening Whether or not the console is listening to this channel.
-     */
-    @Override
-    public void setConsoleListening(boolean listening) {
-        this.consoleListening = listening;
     }
 
     /**

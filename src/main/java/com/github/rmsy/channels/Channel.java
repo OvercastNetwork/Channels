@@ -63,20 +63,6 @@ public interface Channel {
     public boolean sendMessage(final boolean format, @Nonnull final String message, @Nullable final Player sender);
 
     /**
-     * Gets whether or not the console is listening to this channel.
-     *
-     * @return Whether or not the console is listening to this channel.
-     */
-    public boolean isConsoleListening();
-
-    /**
-     * Sets whether or not the console is listening to this channel.
-     *
-     * @param listening Whether or not the console is listening to this channel.
-     */
-    public void setConsoleListening(boolean listening);
-
-    /**
      * Gets the permission node that is required for listening on this channel. Users without this permission node will
      * not receive messages from this channel.
      *

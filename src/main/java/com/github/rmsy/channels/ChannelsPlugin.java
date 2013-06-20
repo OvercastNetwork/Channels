@@ -38,7 +38,7 @@ public class ChannelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">", true, true, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION);
+        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">", true, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION);
         this.playerManager = new SimplePlayerManager();
 
         try {

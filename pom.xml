@@ -6,7 +6,7 @@
 
     <groupId>com.github.rmsy.Channels</groupId>
     <artifactId>Channels</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.2-SNAPSHOT</version>
 
     <name>Channels</name>
     <description>Channels is a simple chat channel plugin and API.</description>
