@@ -19,15 +19,14 @@ import java.util.logging.Level;
 public final class SimpleChannel implements Channel {
 
     /**
-     * The listeners of the channel.
-     */
-    @Nonnull
-    private final Set<Player> listeners;
-    /**
      * The members of the channel.
      */
     @Nonnull
     private final Set<Player> members;
+    /**
+     * The permission node that will be broadcast from this channel to.
+     */
+    private final String permission;
     /**
      * Whether or not the console is listening.
      */
@@ -43,8 +42,8 @@ public final class SimpleChannel implements Channel {
     private boolean shouldStripColors;
 
     private SimpleChannel() {
-        this.listeners = null;
         this.members = null;
+        this.permission = null;
     }
 
     /**
@@ -53,12 +52,13 @@ public final class SimpleChannel implements Channel {
      * @param format            The format to be applied to messages.
      * @param shouldStripColors Whether or not to strip messages of colors.
      * @param consoleListening  Whether or not the console is listening.
+     * @param permission        The permission node that will be broadcast from this channel to.
      */
-    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, boolean consoleListening) {
+    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, boolean consoleListening, @Nonnull final String permission) {
         this.format = Preconditions.checkNotNull(format, "format");
         this.shouldStripColors = shouldStripColors;
         this.consoleListening = consoleListening;
-        this.listeners = new HashSet<Player>();
+        this.permission = Preconditions.checkNotNull(permission);
         this.members = new HashSet<Player>();
     }
 
@@ -96,17 +96,6 @@ public final class SimpleChannel implements Channel {
     @Override
     public Set<Player> getMembers() {
         return new HashSet<Player>(this.members);
-    }
-
-    /**
-     * Gets the users who are listening to messages on this channel.
-     *
-     * @return The users who are listening to messages on this channel.
-     */
-    @Nonnull
-    @Override
-    public Set<Player> getListeners() {
-        return new HashSet<Player>(this.listeners);
     }
 
     /**
@@ -162,9 +151,7 @@ public final class SimpleChannel implements Channel {
             if (this.consoleListening) {
                 Bukkit.getLogger().log(Level.INFO, "[CHAT] " + message);
             }
-            for (Player listener : this.listeners) {
-                listener.sendMessage(message);
-            }
+            Bukkit.broadcast(message, this.permission);
             return true;
         } else {
             return false;
@@ -192,21 +179,15 @@ public final class SimpleChannel implements Channel {
     }
 
     /**
-     * Adds a user as a listener.
+     * Gets the permission node that is required for listening on this channel. Users without this permission node will
+     * not receive messages from this channel.
      *
-     * @param listener The user.
+     * @return The permission node that is required for listening on this channel.
      */
-    protected void addListener(@Nonnull Player listener) {
-        this.listeners.add(Preconditions.checkNotNull(listener, "listener"));
-    }
-
-    /**
-     * Removes a user as a listener.
-     *
-     * @param listener The user.
-     */
-    protected void removeListener(@Nonnull Player listener) {
-        this.listeners.remove(Preconditions.checkNotNull(listener, "listener"));
+    @Nonnull
+    @Override
+    public String getListeningPermission() {
+        return this.permission;
     }
 
     /**

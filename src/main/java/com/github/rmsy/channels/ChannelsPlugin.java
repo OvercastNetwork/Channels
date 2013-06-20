@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 public class ChannelsPlugin extends JavaPlugin {
+    public static final String GLOBAL_CHANNEL_PERMISSION = "channels.global";
     /**
      * The global channel.
      */
@@ -37,7 +38,7 @@ public class ChannelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">", true, true);
+        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">", true, true, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION);
         this.playerManager = new SimplePlayerManager();
 
         try {

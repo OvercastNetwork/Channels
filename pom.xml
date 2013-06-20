@@ -112,7 +112,9 @@
                         </goals>
                         <configuration>
                             <artifactSet>
-                                <include>org.mcstats.bukkit:metrics</include>
+                                <includes>
+                                    <include>org.mcstats.bukkit:metrics</include>
+                                </includes>
                             </artifactSet>
                         </configuration>
                     </execution>
