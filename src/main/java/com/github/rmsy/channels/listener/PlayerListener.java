@@ -37,10 +37,12 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerJoin(@Nonnull final PlayerJoinEvent event) {
-        Channel globalChannel = this.plugin.getGlobalChannel();
         Player player = Preconditions.checkNotNull(event, "event").getPlayer();
         PlayerManager manager = this.plugin.getPlayerManager();
-        manager.setMembershipChannel(player, globalChannel);
-        manager.addListener(player, globalChannel);
+        if (manager.getMembershipChannel(player) == null) {
+            Channel globalChannel = this.plugin.getGlobalChannel();
+            manager.setMembershipChannel(player, globalChannel);
+        }
+        player.addAttachment(this.plugin, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION, true);
     }
 }

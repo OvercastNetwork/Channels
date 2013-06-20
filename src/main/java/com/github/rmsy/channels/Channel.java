@@ -39,14 +39,6 @@ public interface Channel {
     public Set<Player> getMembers();
 
     /**
-     * Gets the users who are listening to messages on this channel.
-     *
-     * @return The users who are listening to messages on this channel.
-     */
-    @Nonnull
-    public Set<Player> getListeners();
-
-    /**
      * Gets whether or not messages sent are stripped of color.
      *
      * @return Whether or not messages sent are stripped of color.
@@ -83,4 +75,13 @@ public interface Channel {
      * @param listening Whether or not the console is listening to this channel.
      */
     public void setConsoleListening(boolean listening);
+
+    /**
+     * Gets the permission node that is required for listening on this channel. Users without this permission node will
+     * not receive messages from this channel.
+     *
+     * @return The permission node that is required for listening on this channel.
+     */
+    @Nonnull
+    public String getListeningPermission();
 }
