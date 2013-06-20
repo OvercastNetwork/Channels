@@ -55,6 +55,8 @@ public class ChannelsPlugin extends JavaPlugin {
         } catch (IOException exception) {
             this.getLogger().log(Level.WARNING, "An unknown error occurred. Metrics were not started.");
         }
+
+        Bukkit.getConsoleSender().addAttachment(this, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION, true);
     }
 
     /**
