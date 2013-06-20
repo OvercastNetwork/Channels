@@ -45,11 +45,11 @@ public class SimplePlayerManager implements PlayerManager {
      */
     @Override
     public void setMembershipChannel(@Nonnull Player player, @Nonnull Channel membershipChannel) {
-        this.playerMembershipMap.put(Preconditions.checkNotNull(player, "player"), Preconditions.checkNotNull(membershipChannel, "channel"));
-        ((SimpleChannel) membershipChannel).addMember(player);
-        SimpleChannel oldChannel = (SimpleChannel) this.playerMembershipMap.get(player);
+        SimpleChannel oldChannel = (SimpleChannel) this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
         if (oldChannel != null) {
             oldChannel.removeMember(player);
         }
+        this.playerMembershipMap.put(player, Preconditions.checkNotNull(membershipChannel, "channel"));
+        ((SimpleChannel) membershipChannel).addMember(player);
     }
 }
