@@ -2,7 +2,11 @@ package com.github.rmsy.channels;
 
 import com.github.rmsy.channels.impl.SimpleChannel;
 import com.github.rmsy.channels.impl.SimplePlayerManager;
+import com.github.rmsy.channels.listener.ChatListener;
+import com.github.rmsy.channels.listener.PlayerListener;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mcstats.Metrics;
 
@@ -31,6 +35,7 @@ public class ChannelsPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        HandlerList.unregisterAll(this);
         this.metrics = null;
         this.playerManager = null;
         this.globalChannel = null;
@@ -38,8 +43,10 @@ public class ChannelsPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">", true, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION);
+        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">: ", true, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION);
         this.playerManager = new SimplePlayerManager();
+        Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 
         try {
             this.metrics = new Metrics(this);
