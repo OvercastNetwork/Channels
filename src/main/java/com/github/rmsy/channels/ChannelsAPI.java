@@ -1,5 +1,7 @@
 package com.github.rmsy.channels;
 
+import java.io.IOException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -65,11 +67,19 @@ public class ChannelsAPI implements Listener{
 	 * @param plugin the plugin that is requesting access to this API
 	 */
 	public ChannelsAPI(@Nonnull Plugin plugin){
-		// TODO: Metrics impl
 		this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">: ", true, ChannelsAPI.GLOBAL_CHANNEL_PERMISSION);
 		this.playerManager = new SimplePlayerManager();
 		plugin.getServer().getPluginManager().registerEvents(new ChatListener(this), plugin);
 		plugin.getServer().getPluginManager().registerEvents(new PlayerListener(this), plugin);
+
+		// Start MCStats (Metrics)
+		try{
+			this.metrics = new Metrics(new ChannelsAPIPlugin(this.hoster));
+			this.metrics.start();
+			this.hoster.getLogger().info("[Channels] Metrics started");
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	private void disable(){
@@ -83,9 +93,9 @@ public class ChannelsAPI implements Listener{
 	public void onPluginDisable(PluginDisableEvent event){
 		if(event != null){
 			Plugin pl = event.getPlugin();
-			if(pl.getName().equals(hoster.getName())
-					&& pl.getDescription().getMain().equals(hoster.getDescription().getMain())
-					&& pl.getDescription().getVersion().equals(hoster.getDescription().getVersion())){
+			if(pl.getName().equals(this.hoster.getName())
+					&& pl.getDescription().getMain().equals(this.hoster.getDescription().getMain())
+					&& pl.getDescription().getVersion().equals(this.hoster.getDescription().getVersion())){
 				disable();
 			}
 		}
@@ -115,7 +125,7 @@ public class ChannelsAPI implements Listener{
 	 * @return the hosting plugin
 	 */
 	public Plugin getHost(){
-		return hoster;
+		return this.hoster;
 	}
 
 }
