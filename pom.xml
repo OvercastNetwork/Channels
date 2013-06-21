@@ -6,7 +6,7 @@
 
     <groupId>com.github.rmsy.Channels</groupId>
     <artifactId>Channels</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.3-SNAPSHOT</version>
 
     <name>Channels</name>
     <description>Channels is a simple chat channel plugin and API.</description>
@@ -66,13 +66,21 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>1.5.2-R1.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mcstats.bukkit</groupId>
             <artifactId>metrics</artifactId>
             <version>R6</version>
-            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>command-framework-bukkit</artifactId>
+            <version>0.4-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>command-framework-core</artifactId>
+            <version>0.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -86,6 +94,11 @@
             <id>mcstats-repo</id>
             <name>MCStats repo</name>
             <url>http://repo.mcstats.org/content/repositories/public</url>
+        </repository>
+        <repository>
+            <id>overcast-repo</id>
+            <name>Overcast Network repo</name>
+            <url>http://repo.oc.tc/content/repositories/public</url>
         </repository>
     </repositories>
 
@@ -114,6 +127,8 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.mcstats.bukkit:metrics</include>
+                                    <include>com.sk89q:command-framework-bukkit</include>
+                                    <include>com.sk89q:command-framework-core</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

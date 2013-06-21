@@ -6,3 +6,14 @@ website: ${url}
 main: ${plugin.mainClass}
 prefix: ${plugin.prefix}
 
+permissions:
+    channels.global:
+        description: Allows the user to send and receive messages to/from the global channel.
+        default: true
+        children:
+          channels.global.receive: true
+          channels.global.send: true
+    channels.global.receive:
+        description: Allows the user to receive messages from the global channel.
+    channels.global.send:
+        description: Allows the user to send messages to the global channel.

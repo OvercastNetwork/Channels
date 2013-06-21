@@ -43,6 +43,5 @@ public class PlayerListener implements Listener {
             Channel globalChannel = this.plugin.getGlobalChannel();
             manager.setMembershipChannel(player, globalChannel);
         }
-        player.addAttachment(this.plugin, ChannelsPlugin.GLOBAL_CHANNEL_PERMISSION, true);
     }
 }

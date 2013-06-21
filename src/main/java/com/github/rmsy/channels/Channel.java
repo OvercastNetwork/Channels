@@ -30,8 +30,7 @@ public interface Channel {
     public void setFormat(@Nonnull String format);
 
     /**
-     * Gets the users who are sending to this channel by default. All users sending to the channel by default must also
-     * be listening.
+     * Gets the users who are sending to this channel by default.
      *
      * @return The users who are sending to this channel by default.
      */
@@ -55,12 +54,11 @@ public interface Channel {
     /**
      * Sends a new message to the channel.
      *
-     * @param format  Whether or not to format the message.
      * @param message The message to be sent.
      * @param sender  The message sender, or null for console.
      * @return Whether or not the message was sent.
      */
-    public boolean sendMessage(final boolean format, @Nonnull final String message, @Nullable final Player sender);
+    public boolean sendMessage(@Nonnull final String message, @Nullable final Player sender);
 
     /**
      * Gets the permission node that is required for listening on this channel. Users without this permission node will
@@ -70,4 +68,11 @@ public interface Channel {
      */
     @Nonnull
     public String getListeningPermission();
+
+    /**
+     * Broadcasts a message to the channel.
+     *
+     * @param message The message to be broadcast.
+     */
+    public void broadcast(@Nonnull final String message);
 }

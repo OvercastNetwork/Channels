@@ -114,13 +114,12 @@ public final class SimpleChannel implements Channel {
     /**
      * Sends a new message to the channel.
      *
-     * @param format     Whether or not to format the message.
      * @param rawMessage The message to be sent.
      * @param sender     The message sender, or null for console.
      * @return Whether or not the message was sent.
      */
     @Override
-    public boolean sendMessage(boolean format, @Nonnull String rawMessage, @Nullable Player sender) {
+    public boolean sendMessage(@Nonnull String rawMessage, @Nullable Player sender) {
         String message = Preconditions.checkNotNull(rawMessage, "message");
         String senderDisplayName;
         if (sender != null) {
@@ -131,12 +130,10 @@ public final class SimpleChannel implements Channel {
         if (this.shouldStripColors) {
             message = ChatColor.stripColor(message);
         }
-        if (format) {
-            if (this.format.contains("%s")) {
-                message = String.format(this.format, senderDisplayName) + message;
-            } else {
-                message = this.format + message;
-            }
+        if (this.format.contains("%s")) {
+            message = String.format(this.format, senderDisplayName) + message;
+        } else {
+            message = this.format + message;
         }
         ChannelMessageEvent event = new ChannelMessageEvent(message, sender);
         Bukkit.getPluginManager().callEvent(event);
@@ -158,6 +155,16 @@ public final class SimpleChannel implements Channel {
     @Override
     public String getListeningPermission() {
         return this.permission;
+    }
+
+    /**
+     * Broadcasts a message to the channel.
+     *
+     * @param message The message to be broadcast.
+     */
+    @Override
+    public void broadcast(@Nonnull final String message) {
+        Bukkit.broadcast(Preconditions.checkNotNull(message, "message"), this.permission);
     }
 
     /**

@@ -37,6 +37,6 @@ public class ChatListener implements Listener {
     public void onPlayerChat(@Nonnull final AsyncPlayerChatEvent event) {
         Preconditions.checkNotNull(event, "event").setCancelled(true);
         Player sender = event.getPlayer();
-        this.plugin.getPlayerManager().getMembershipChannel(sender).sendMessage(true, event.getMessage(), sender);
+        this.plugin.getPlayerManager().getMembershipChannel(sender).sendMessage(event.getMessage(), sender);
     }
 }
