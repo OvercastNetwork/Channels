@@ -1,4 +1,5 @@
 com.github.rmsy.channels
+com.github.rmsy.channels.command
 com.github.rmsy.channels.event
 com.github.rmsy.channels.impl
 com.github.rmsy.channels.listener
