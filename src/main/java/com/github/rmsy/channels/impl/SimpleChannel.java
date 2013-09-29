@@ -13,15 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /** Simple implementation of {@link Channel}. */
-public final class SimpleChannel implements Channel {
+public class SimpleChannel implements Channel {
 
     /** The members of the channel. */
-
     private final Set<Player> members;
     /** The permission node that will be broadcast from this channel to. */
     private final String permission;
     /** The format. */
-
     private String format;
     /** Whether or not to strip colors. */
     private boolean shouldStripColors;
@@ -42,7 +40,7 @@ public final class SimpleChannel implements Channel {
         this.format = Preconditions.checkNotNull(format, "format");
         this.shouldStripColors = shouldStripColors;
         this.permission = Preconditions.checkNotNull(permission);
-        this.members = new HashSet<Player>();
+        this.members = new HashSet<>();
     }
 
     /**
@@ -51,7 +49,6 @@ public final class SimpleChannel implements Channel {
      * @return The channel's format.
      * @see #setFormat(String)
      */
-
     @Override
     public String getFormat() {
         return this.format;
@@ -75,9 +72,8 @@ public final class SimpleChannel implements Channel {
      *
      * @return The users who are sending to this channel by default.
      */
-
     @Override
-    public ImmutableSet<Player> getMembers() {
+    public final ImmutableSet<Player> getMembers() {
         return ImmutableSet.copyOf(this.members);
     }
 
@@ -141,7 +137,6 @@ public final class SimpleChannel implements Channel {
      *
      * @return The permission node that is required for listening on this channel.
      */
-
     @Override
     public String getListeningPermission() {
         return this.permission;
@@ -163,7 +158,7 @@ public final class SimpleChannel implements Channel {
      *
      * @param member The user.
      */
-    protected void removeMember(Player member) {
+    protected final void removeMember(Player member) {
         this.members.remove(Preconditions.checkNotNull(member, "member"));
     }
 
@@ -173,7 +168,7 @@ public final class SimpleChannel implements Channel {
      *
      * @param member The user.
      */
-    protected void addMember(Player member) {
+    protected final void addMember(Player member) {
         this.members.add(Preconditions.checkNotNull(member, "member"));
     }
 }
