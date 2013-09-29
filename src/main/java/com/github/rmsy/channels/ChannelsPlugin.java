@@ -5,6 +5,7 @@ import com.github.rmsy.channels.impl.SimpleChannel;
 import com.github.rmsy.channels.impl.SimplePlayerManager;
 import com.github.rmsy.channels.listener.ChatListener;
 import com.github.rmsy.channels.listener.PlayerListener;
+import com.google.common.base.Preconditions;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
@@ -19,13 +20,12 @@ public class ChannelsPlugin extends JavaPlugin {
     public static final String GLOBAL_CHANNEL_SEND_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".send";
     public static final String GLOBAL_CHANNEL_RECEIVE_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".receive";
     /** The plugin instance. */
-
     public static ChannelsPlugin plugin;
     /** The global channel. */
-
     private Channel globalChannel;
+    /** The default channel. */
+    private Channel defaultChannel;
     /** The commands manager. */
-
     private CommandsManager commands;
     /** The commands' registration. */
     private CommandsManagerRegistration commandsRegistration;
@@ -37,11 +37,11 @@ public class ChannelsPlugin extends JavaPlugin {
      *
      * @return The universal player manager.
      */
-
     public PlayerManager getPlayerManager() {
         return this.playerManager;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command cmd, String commandLabel, String[] args) {
         try {
@@ -69,6 +69,7 @@ public class ChannelsPlugin extends JavaPlugin {
         this.commandsRegistration = null;
         this.commands = null;
         this.playerManager = null;
+        this.defaultChannel = null;
         this.globalChannel = null;
     }
 
@@ -91,8 +92,25 @@ public class ChannelsPlugin extends JavaPlugin {
      *
      * @return The global channel.
      */
-
     public Channel getGlobalChannel() {
         return this.globalChannel;
+    }
+
+    /**
+     * Gets the channel that newly-connected players will be added to.
+     *
+     * @return The channel.
+     */
+    public Channel getDefaultChannel() {
+        return this.defaultChannel;
+    }
+
+    /**
+     * Sets the channel that newly-connected players will be added to.
+     *
+     * @param channel The channel.
+     */
+    public void setDefaultChannel(Channel channel) {
+        this.defaultChannel = Preconditions.checkNotNull(channel, "Channel");
     }
 }

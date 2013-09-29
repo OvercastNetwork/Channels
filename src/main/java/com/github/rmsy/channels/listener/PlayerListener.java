@@ -1,6 +1,5 @@
 package com.github.rmsy.channels.listener;
 
-import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.ChannelsPlugin;
 import com.github.rmsy.channels.PlayerManager;
 import com.google.common.base.Preconditions;
@@ -31,11 +30,10 @@ public class PlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlayerJoin(final PlayerJoinEvent event) {
-        Player player = Preconditions.checkNotNull(event, "event").getPlayer();
+        Player player = event.getPlayer();
         PlayerManager manager = this.plugin.getPlayerManager();
         if (manager.getMembershipChannel(player) == null) {
-            Channel globalChannel = this.plugin.getGlobalChannel();
-            manager.setMembershipChannel(player, globalChannel);
+            manager.setMembershipChannel(player, this.plugin.getDefaultChannel());
         }
     }
 }
