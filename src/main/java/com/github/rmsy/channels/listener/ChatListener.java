@@ -8,16 +8,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import javax.annotation.Nonnull;
-
-/**
- * Listener for chat-related events.
- */
+/** Listener for chat-related events. */
 public class ChatListener implements Listener {
 
-    /**
-     * The plugin.
-     */
+    /** The plugin. */
     private final ChannelsPlugin plugin;
 
     private ChatListener() {
@@ -29,12 +23,12 @@ public class ChatListener implements Listener {
      *
      * @param plugin The plugin.
      */
-    public ChatListener(@Nonnull final ChannelsPlugin plugin) {
+    public ChatListener(final ChannelsPlugin plugin) {
         this.plugin = Preconditions.checkNotNull(plugin, "plugin");
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onPlayerChat(@Nonnull final AsyncPlayerChatEvent event) {
+    public void onPlayerChat(final AsyncPlayerChatEvent event) {
         Preconditions.checkNotNull(event, "event").setCancelled(true);
         Player sender = event.getPlayer();
         this.plugin.getPlayerManager().getMembershipChannel(sender).sendMessage(event.getMessage(), sender);

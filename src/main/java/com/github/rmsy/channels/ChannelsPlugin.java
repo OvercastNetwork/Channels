@@ -13,46 +13,23 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.Metrics;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.util.logging.Level;
 
 public class ChannelsPlugin extends JavaPlugin {
     public static final String GLOBAL_CHANNEL_PARENT_NODE = "channels.global";
     public static final String GLOBAL_CHANNEL_SEND_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".send";
     public static final String GLOBAL_CHANNEL_RECEIVE_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".receive";
-    /**
-     * The plugin instance.
-     */
-    @Nonnull
+    /** The plugin instance. */
+
     public static ChannelsPlugin plugin;
-    /**
-     * The global channel.
-     */
-    @Nonnull
+    /** The global channel. */
+
     private Channel globalChannel;
-    /**
-     * The commands manager.
-     */
-    @Nonnull
+    /** The commands manager. */
+
     private CommandsManager commands;
-    /**
-     * The commands' registration.
-     */
-    @Nonnull
+    /** The commands' registration. */
     private CommandsManagerRegistration commandsRegistration;
-    /**
-     * The MCStats metrics instance. Null if creation failed.
-     */
-    @Nullable
-    private Metrics metrics;
-    /**
-     * The player manager.
-     */
-    @Nonnull
+    /** The player manager. */
     private PlayerManager playerManager;
 
     /**
@@ -60,7 +37,7 @@ public class ChannelsPlugin extends JavaPlugin {
      *
      * @return The universal player manager.
      */
-    @Nonnull
+
     public PlayerManager getPlayerManager() {
         return this.playerManager;
     }
@@ -89,8 +66,6 @@ public class ChannelsPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(this);
-        this.metrics = null;
-        this.commandsRegistration.unregisterCommands();
         this.commandsRegistration = null;
         this.commands = null;
         this.playerManager = null;
@@ -109,14 +84,6 @@ public class ChannelsPlugin extends JavaPlugin {
         this.commands = new BukkitCommandsManager();
         this.commandsRegistration = new CommandsManagerRegistration(this, this.commands);
         this.commandsRegistration.register(GlobalChannelCommands.class);
-
-        try {
-            this.metrics = new Metrics(this);
-            this.metrics.start();
-            this.getLogger().log(Level.INFO, "Metrics enabled.");
-        } catch (IOException exception) {
-            this.getLogger().log(Level.WARNING, "An unknown error occurred. Metrics were not started.");
-        }
     }
 
     /**
@@ -124,7 +91,7 @@ public class ChannelsPlugin extends JavaPlugin {
      *
      * @return The global channel.
      */
-    @Nonnull
+
     public Channel getGlobalChannel() {
         return this.globalChannel;
     }

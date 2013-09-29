@@ -5,23 +5,16 @@ import com.github.rmsy.channels.PlayerManager;
 import com.google.common.base.Preconditions;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Simple implementation of {@link PlayerManager}.
- */
+/** Simple implementation of {@link PlayerManager}. */
 public class SimplePlayerManager implements PlayerManager {
 
-    /**
-     * Players mapped to their membership channels.
-     */
+    /** Players mapped to their membership channels. */
     private final Map<Player, Channel> playerMembershipMap;
 
-    /**
-     * Creates a new SimplePlayerManager.
-     */
+    /** Creates a new SimplePlayerManager. */
     public SimplePlayerManager() {
         this.playerMembershipMap = new HashMap<Player, Channel>();
     }
@@ -33,7 +26,7 @@ public class SimplePlayerManager implements PlayerManager {
      * @return The channel the player is a member of.
      */
     @Override
-    public Channel getMembershipChannel(@Nonnull final Player player) {
+    public Channel getMembershipChannel(final Player player) {
         return this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
     }
 
@@ -44,7 +37,7 @@ public class SimplePlayerManager implements PlayerManager {
      * @param membershipChannel The channel the player is a member of.
      */
     @Override
-    public void setMembershipChannel(@Nonnull Player player, @Nonnull Channel membershipChannel) {
+    public void setMembershipChannel(Player player, Channel membershipChannel) {
         SimpleChannel oldChannel = (SimpleChannel) this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
         if (oldChannel != null) {
             oldChannel.removeMember(player);

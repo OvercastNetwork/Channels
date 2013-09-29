@@ -1,14 +1,11 @@
 package com.github.rmsy.channels;
 
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Set;
 
-/**
- * Interface to represent a chat channel.
- */
+/** Interface to represent a chat channel. */
 public interface Channel {
     /**
      * Gets the channel's format.
@@ -16,7 +13,7 @@ public interface Channel {
      * @return The channel's format.
      * @see #setFormat(String)
      */
-    @Nonnull
+
     public String getFormat();
 
     /**
@@ -27,15 +24,15 @@ public interface Channel {
      *
      * @param format The format.
      */
-    public void setFormat(@Nonnull String format);
+    public void setFormat(String format);
 
     /**
      * Gets the users who are sending to this channel by default.
      *
      * @return The users who are sending to this channel by default.
      */
-    @Nonnull
-    public Set<Player> getMembers();
+
+    public ImmutableSet<Player> getMembers();
 
     /**
      * Gets whether or not messages sent are stripped of color.
@@ -58,7 +55,7 @@ public interface Channel {
      * @param sender  The message sender, or null for console.
      * @return Whether or not the message was sent.
      */
-    public boolean sendMessage(@Nonnull final String message, @Nullable final Player sender);
+    public boolean sendMessage(final String message, @Nullable final Player sender);
 
     /**
      * Gets the permission node that is required for listening on this channel. Users without this permission node will
@@ -66,7 +63,7 @@ public interface Channel {
      *
      * @return The permission node that is required for listening on this channel.
      */
-    @Nonnull
+
     public String getListeningPermission();
 
     /**
@@ -74,5 +71,5 @@ public interface Channel {
      *
      * @param message The message to be broadcast.
      */
-    public void broadcast(@Nonnull final String message);
+    public void broadcast(final String message);
 }

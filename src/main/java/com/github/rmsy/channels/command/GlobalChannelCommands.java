@@ -6,11 +6,7 @@ import com.sk89q.minecraft.util.commands.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
-
-/**
- * Commands for dealing with the global channel.
- */
+/** Commands for dealing with the global channel. */
 public final class GlobalChannelCommands {
 
     @Command(
@@ -22,7 +18,7 @@ public final class GlobalChannelCommands {
     )
     @CommandPermissions({ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE, ChannelsPlugin.GLOBAL_CHANNEL_SEND_NODE})
     @Console
-    public static void globalChannelCommand(@Nonnull final CommandContext arguments, @Nonnull final CommandSender sender) throws CommandException {
+    public static void globalChannelCommand(final CommandContext arguments, final CommandSender sender) throws CommandException {
         if (Preconditions.checkNotNull(arguments, "arguments").argsLength() == 0) {
             if (Preconditions.checkNotNull(sender, "sender").hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE)) {
                 if (sender instanceof Player) {

@@ -65,22 +65,13 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.5.2-R1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mcstats.bukkit</groupId>
-            <artifactId>metrics</artifactId>
-            <version>R6</version>
+            <version>1.6.2-R0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>
-            <version>0.4-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>command-framework-core</artifactId>
-            <version>0.4-SNAPSHOT</version>
+            <version>0.5-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -89,11 +80,6 @@
             <id>bukkit-repo</id>
             <name>Bukkit repo</name>
             <url>http://repo.bukkit.org/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>mcstats-repo</id>
-            <name>MCStats repo</name>
-            <url>http://repo.mcstats.org/content/repositories/public</url>
         </repository>
         <repository>
             <id>overcast-repo</id>
@@ -112,28 +98,6 @@
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.mcstats.bukkit:metrics</include>
-                                    <include>com.sk89q:command-framework-bukkit</include>
-                                    <include>com.sk89q:command-framework-core</include>
-                                </includes>
-                            </artifactSet>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <resources>

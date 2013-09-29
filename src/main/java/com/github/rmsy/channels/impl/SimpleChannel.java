@@ -3,37 +3,27 @@ package com.github.rmsy.channels.impl;
 import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.event.ChannelMessageEvent;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Simple implementation of {@link Channel}.
- */
+/** Simple implementation of {@link Channel}. */
 public final class SimpleChannel implements Channel {
 
-    /**
-     * The members of the channel.
-     */
-    @Nonnull
+    /** The members of the channel. */
+
     private final Set<Player> members;
-    /**
-     * The permission node that will be broadcast from this channel to.
-     */
+    /** The permission node that will be broadcast from this channel to. */
     private final String permission;
-    /**
-     * The format.
-     */
-    @Nonnull
+    /** The format. */
+
     private String format;
-    /**
-     * Whether or not to strip colors.
-     */
+    /** Whether or not to strip colors. */
     private boolean shouldStripColors;
 
     private SimpleChannel() {
@@ -48,7 +38,7 @@ public final class SimpleChannel implements Channel {
      * @param shouldStripColors Whether or not to strip messages of colors.
      * @param permission        The permission node that will be broadcast from this channel to.
      */
-    public SimpleChannel(@Nonnull final String format, boolean shouldStripColors, @Nonnull final String permission) {
+    public SimpleChannel(final String format, boolean shouldStripColors, final String permission) {
         this.format = Preconditions.checkNotNull(format, "format");
         this.shouldStripColors = shouldStripColors;
         this.permission = Preconditions.checkNotNull(permission);
@@ -61,7 +51,7 @@ public final class SimpleChannel implements Channel {
      * @return The channel's format.
      * @see #setFormat(String)
      */
-    @Nonnull
+
     @Override
     public String getFormat() {
         return this.format;
@@ -76,7 +66,7 @@ public final class SimpleChannel implements Channel {
      * @param format The format.
      */
     @Override
-    public void setFormat(@Nonnull String format) {
+    public void setFormat(String format) {
         this.format = Preconditions.checkNotNull(format, "format");
     }
 
@@ -85,10 +75,10 @@ public final class SimpleChannel implements Channel {
      *
      * @return The users who are sending to this channel by default.
      */
-    @Nonnull
+
     @Override
-    public Set<Player> getMembers() {
-        return new HashSet<Player>(this.members);
+    public ImmutableSet<Player> getMembers() {
+        return ImmutableSet.copyOf(this.members);
     }
 
     /**
@@ -119,7 +109,7 @@ public final class SimpleChannel implements Channel {
      * @return Whether or not the message was sent.
      */
     @Override
-    public boolean sendMessage(@Nonnull String rawMessage, @Nullable Player sender) {
+    public boolean sendMessage(String rawMessage, @Nullable Player sender) {
         String message = Preconditions.checkNotNull(rawMessage, "message");
         String senderDisplayName;
         if (sender != null) {
@@ -151,7 +141,7 @@ public final class SimpleChannel implements Channel {
      *
      * @return The permission node that is required for listening on this channel.
      */
-    @Nonnull
+
     @Override
     public String getListeningPermission() {
         return this.permission;
@@ -163,7 +153,7 @@ public final class SimpleChannel implements Channel {
      * @param message The message to be broadcast.
      */
     @Override
-    public void broadcast(@Nonnull final String message) {
+    public void broadcast(final String message) {
         Bukkit.broadcast(Preconditions.checkNotNull(message, "message"), this.permission);
     }
 
@@ -173,7 +163,7 @@ public final class SimpleChannel implements Channel {
      *
      * @param member The user.
      */
-    protected void removeMember(@Nonnull Player member) {
+    protected void removeMember(Player member) {
         this.members.remove(Preconditions.checkNotNull(member, "member"));
     }
 
@@ -183,7 +173,7 @@ public final class SimpleChannel implements Channel {
      *
      * @param member The user.
      */
-    protected void addMember(@Nonnull Player member) {
+    protected void addMember(Player member) {
         this.members.add(Preconditions.checkNotNull(member, "member"));
     }
 }

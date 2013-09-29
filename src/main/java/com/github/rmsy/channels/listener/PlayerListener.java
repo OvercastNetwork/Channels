@@ -10,16 +10,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import javax.annotation.Nonnull;
-
-/**
- * Listener for player-related events.
- */
+/** Listener for player-related events. */
 public class PlayerListener implements Listener {
 
-    /**
-     * The plugin.
-     */
+    /** The plugin. */
     private final ChannelsPlugin plugin;
 
     private PlayerListener() {
@@ -31,12 +25,12 @@ public class PlayerListener implements Listener {
      *
      * @param plugin The plugin.
      */
-    public PlayerListener(@Nonnull final ChannelsPlugin plugin) {
+    public PlayerListener(final ChannelsPlugin plugin) {
         this.plugin = Preconditions.checkNotNull(plugin, "plugin");
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPlayerJoin(@Nonnull final PlayerJoinEvent event) {
+    public void onPlayerJoin(final PlayerJoinEvent event) {
         Player player = Preconditions.checkNotNull(event, "event").getPlayer();
         PlayerManager manager = this.plugin.getPlayerManager();
         if (manager.getMembershipChannel(player) == null) {

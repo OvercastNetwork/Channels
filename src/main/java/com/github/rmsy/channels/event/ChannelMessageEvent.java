@@ -6,30 +6,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/**
- * Raised when a message is sent to a channel.
- */
+/** Raised when a message is sent to a channel. */
 public final class ChannelMessageEvent extends ChannelsEvent implements Cancellable {
-    /**
-     * The handlers for the event.
-     */
+    /** The handlers for the event. */
     private static final HandlerList handlers = new HandlerList();
-    /**
-     * The message sender, or null for console.
-     */
+    /** The message sender, or null for console. */
     @Nullable
     private final Player sender;
-    /**
-     * The message to be sent.
-     */
-    @Nonnull
+    /** The message to be sent. */
+
     private String message;
-    /**
-     * Whether or not the event is cancelled.
-     */
+    /** Whether or not the event is cancelled. */
     private boolean cancelled = false;
 
     private ChannelMessageEvent() {
@@ -42,7 +31,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      * @param message The message.
      * @param sender  The sender, or null for console.
      */
-    public ChannelMessageEvent(@Nonnull String message, @Nullable final Player sender) {
+    public ChannelMessageEvent(String message, @Nullable final Player sender) {
         this.message = Preconditions.checkNotNull(message, "message");
         this.sender = sender;
     }
@@ -62,7 +51,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @return The message to be sent.
      */
-    @Nonnull
+
     public String getMessage() {
         return message;
     }
@@ -72,13 +61,11 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @param message The message to be sent.
      */
-    public void setMessage(@Nonnull String message) {
+    public void setMessage(String message) {
         this.message = Preconditions.checkNotNull(message, "message");
     }
 
-    /**
-     * Gets the handlers for the event.
-     */
+    /** Gets the handlers for the event. */
     @Override
     public HandlerList getHandlers() {
         return ChannelMessageEvent.handlers;
