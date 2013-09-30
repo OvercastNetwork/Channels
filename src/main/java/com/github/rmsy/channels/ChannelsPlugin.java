@@ -20,7 +20,7 @@ public class ChannelsPlugin extends JavaPlugin {
     public static final String GLOBAL_CHANNEL_SEND_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".send";
     public static final String GLOBAL_CHANNEL_RECEIVE_NODE = ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE + ".receive";
     /** The plugin instance. */
-    public static ChannelsPlugin plugin;
+    private static ChannelsPlugin plugin;
     /** The global channel. */
     private Channel globalChannel;
     /** The default channel. */
@@ -31,6 +31,15 @@ public class ChannelsPlugin extends JavaPlugin {
     private CommandsManagerRegistration commandsRegistration;
     /** The player manager. */
     private PlayerManager playerManager;
+
+    /**
+     * Gets the plugin instance
+     *
+     * @return The plugin instance.
+     */
+    public static ChannelsPlugin get() {
+        return ChannelsPlugin.plugin;
+    }
 
     /**
      * Gets the universal player manager.

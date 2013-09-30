@@ -16,7 +16,7 @@ public class SimplePlayerManager implements PlayerManager {
 
     /** Creates a new SimplePlayerManager. */
     public SimplePlayerManager() {
-        this.playerMembershipMap = new HashMap<Player, Channel>();
+        this.playerMembershipMap = new HashMap<>();
     }
 
     /**

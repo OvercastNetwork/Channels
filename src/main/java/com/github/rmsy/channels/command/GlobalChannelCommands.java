@@ -26,9 +26,10 @@ public final class GlobalChannelCommands {
             if (Preconditions.checkNotNull(sender, "sender").hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE)) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    PlayerManager playerManager = ChannelsPlugin.plugin.getPlayerManager();
+                    ChannelsPlugin plugin = ChannelsPlugin.get();
+                    PlayerManager playerManager = plugin.getPlayerManager();
                     Channel oldChannel = playerManager.getMembershipChannel(player);
-                    Channel globalChannel = ChannelsPlugin.plugin.getGlobalChannel();
+                    Channel globalChannel = plugin.getGlobalChannel();
                     playerManager.setMembershipChannel(player, globalChannel);
                     if (!oldChannel.equals(globalChannel)) {
                         sender.sendMessage(ChatColor.YELLOW + "Changed default channel to global chat.");
@@ -46,7 +47,7 @@ public final class GlobalChannelCommands {
             if (sender instanceof Player) {
                 sendingPlayer = (Player) sender;
             }
-            ChannelsPlugin.plugin.getGlobalChannel().sendMessage(arguments.getJoinedStrings(0), sendingPlayer);
+            ChannelsPlugin.get().getGlobalChannel().sendMessage(arguments.getJoinedStrings(0), sendingPlayer);
             if (!sender.hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE)) {
                 sender.sendMessage(ChatColor.YELLOW + "Message sent.");
             }
