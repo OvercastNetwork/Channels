@@ -13,7 +13,6 @@ public interface Channel {
      * @return The channel's format.
      * @see #setFormat(String)
      */
-
     public String getFormat();
 
     /**
@@ -31,7 +30,6 @@ public interface Channel {
      *
      * @return The users who are sending to this channel by default.
      */
-
     public ImmutableSet<Player> getMembers();
 
     /**
@@ -63,7 +61,6 @@ public interface Channel {
      *
      * @return The permission node that is required for listening on this channel.
      */
-
     public String getListeningPermission();
 
     /**

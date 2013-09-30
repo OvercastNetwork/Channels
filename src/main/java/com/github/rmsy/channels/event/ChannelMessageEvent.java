@@ -13,10 +13,8 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
     /** The handlers for the event. */
     private static final HandlerList handlers = new HandlerList();
     /** The message sender, or null for console. */
-    @Nullable
-    private final Player sender;
+    private @Nullable final Player sender;
     /** The message to be sent. */
-
     private String message;
     /** Whether or not the event is cancelled. */
     private boolean cancelled = false;
@@ -41,8 +39,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @return The message sender, or null for console.
      */
-    @Nullable
-    public Player getSender() {
+    public @Nullable Player getSender() {
         return this.sender;
     }
 
@@ -51,7 +48,6 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @return The message to be sent.
      */
-
     public String getMessage() {
         return message;
     }

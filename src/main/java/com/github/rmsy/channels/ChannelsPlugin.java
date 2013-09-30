@@ -77,7 +77,7 @@ public class ChannelsPlugin extends JavaPlugin {
     public void onEnable() {
         ChannelsPlugin.plugin = this;
 
-        this.globalChannel = new SimpleChannel("<%s" + ChatColor.RESET + ">: ", true, ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE);
+        this.globalChannel = new SimpleChannel(ChatColor.WHITE + "<%s" + ChatColor.RESET + ChatColor.WHITE + ">: ", true, ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE);
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
