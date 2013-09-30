@@ -1,5 +1,6 @@
 package com.github.rmsy.channels.event;
 
+import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.ChannelsEvent;
 import com.google.common.base.Preconditions;
 import org.bukkit.entity.Player;
@@ -12,6 +13,8 @@ import javax.annotation.Nullable;
 public final class ChannelMessageEvent extends ChannelsEvent implements Cancellable {
     /** The handlers for the event. */
     private static final HandlerList handlers = new HandlerList();
+    /** The {@link Channel} to which the message was sent. */
+    private final Channel channel;
     /** The message sender, or null for console. */
     private @Nullable final Player sender;
     /** The message to be sent. */
@@ -19,19 +22,16 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
     /** Whether or not the event is cancelled. */
     private boolean cancelled = false;
 
-    private ChannelMessageEvent() {
-        this.sender = null;
-    }
-
     /**
      * Creates a new ChannelMessageEvent.
      *
      * @param message The message.
      * @param sender  The sender, or null for console.
      */
-    public ChannelMessageEvent(String message, @Nullable final Player sender) {
+    public ChannelMessageEvent(String message, @Nullable final Player sender, Channel channel) {
         this.message = Preconditions.checkNotNull(message, "message");
         this.sender = sender;
+        this.channel = Preconditions.checkNotNull(channel, "Channel");
     }
 
     /**
@@ -59,6 +59,15 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      */
     public void setMessage(String message) {
         this.message = Preconditions.checkNotNull(message, "message");
+    }
+
+    /**
+     * Gets the {@link Channel} to which this message was sent.
+     *
+     * @return The {@link Channel}.
+     */
+    public Channel getChannel() {
+        return this.channel;
     }
 
     /** Gets the handlers for the event. */
