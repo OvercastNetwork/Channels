@@ -67,6 +67,11 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
         return ChannelMessageEvent.handlers;
     }
 
+    /** Gets the handlers for the event. */
+    public static HandlerList getHandlerList() {
+        return ChannelMessageEvent.handlers;
+    }
+
     /**
      * Gets the cancellation state of this event. A cancelled event will not be executed in the server, but will still
      * pass to other plugins
