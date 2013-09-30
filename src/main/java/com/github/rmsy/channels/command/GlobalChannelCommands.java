@@ -30,7 +30,7 @@ public final class GlobalChannelCommands {
                     Channel globalChannel = ChannelsPlugin.plugin.getGlobalChannel();
                     playerManager.setMembershipChannel(player, globalChannel);
                     if (!oldChannel.equals(globalChannel)) {
-                        sender.sendMessage(ChatColor.YELLOW + "Switched to global chat.");
+                        sender.sendMessage(ChatColor.YELLOW + "Changed default channel to global chat.");
                     } else {
                         throw new CommandException("Global chat is already your default channel.");
                     }
