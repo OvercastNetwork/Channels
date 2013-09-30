@@ -16,6 +16,7 @@ public final class GlobalChannelCommands {
             desc = "Sends a message to the global channel (or sets the global channel to your default channel).",
             max = -1,
             min = 0,
+            anyFlags = true,
             usage = "[message...]"
     )
     @CommandPermissions({ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE, ChannelsPlugin.GLOBAL_CHANNEL_SEND_NODE})
