@@ -32,10 +32,10 @@ public final class GlobalChannelCommands {
                     if (!oldChannel.equals(globalChannel)) {
                         sender.sendMessage(ChatColor.YELLOW + "Switched to global chat.");
                     } else {
-                        throw new CommandUsageException("Global chat is already your default channel.", "/g <message...>");
+                        throw new CommandException("Global chat is already your default channel.");
                     }
                 } else {
-                    throw new CommandUsageException("You must provide a message.", "/g <message>");
+                    throw new CommandUsageException("You must provide a message.", "/g <message...>");
                 }
             } else {
                 throw new CommandPermissionsException();
