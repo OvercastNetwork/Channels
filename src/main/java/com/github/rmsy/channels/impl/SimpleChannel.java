@@ -121,7 +121,7 @@ public class SimpleChannel implements Channel {
         } else {
             message = this.format + message;
         }
-        ChannelMessageEvent event = new ChannelMessageEvent(message, sender);
+        ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Bukkit.broadcast(message, this.permission);
