@@ -18,18 +18,17 @@ import java.util.Set;
  * custom format variables: <table border="1"> <tbody> <tr> <th id="var">Variable</th> <th id="expl">Meaning</th> <th
  * id="ex">Examples</th> </tr> <tr> <td headers="var">{0}</td> <td headers="expl"> The sending {@link Player}'s name (or
  * "Console", if the sending {@link Player} is <code>null</code>. </td> <td headers="ex"> <ul> <li> If player
- * "iamramsey" sent a message, <code>"{0}"</code> would evaluate to "iamramsey". </li> <li> If a message was sent with a
- * <code>null</code> sender, <code>"{0}"</code> would evaluate to "Console". </li> </ul> </td> </tr> <tr> <td
+ * "iamramsey" sent a message, <code>{0}</code> would evaluate to "iamramsey". </li> <li> If a message was sent with a
+ * <code>null</code> sender, <code>{0}</code> would evaluate to "Console". </li> </ul> </td> </tr> <tr> <td
  * headers="var">{1}</td> <td headers="expl"> The sending {@link Player}'s display name (or "§3*§6Console", if the
  * sending {@link Player} is <code>null</code>. </td> <td headers="ex"> <ul> <li> If player "iamramsey" (with display
- * name "§ciamramsey") sent a message, <code>"{1}"</code> would evaluate to "§ciamramsey". </li> <li> If a message was
- * sent with a <code>null</code> sender, <code>"{1}"</code> would evaluate to "§3*§6Console". </li> </ul> </td> </tr>
- * <tr> <td headers="var">{2}</td> <td headers="expl">The raw message.</td> <td headers="ex"> <ul> <li>If the message
- * "§cHello!" is sent, <code>"{2}"</code> would evaluate to "§cHello!".</li> </ul> </td> </tr> <tr> <td
+ * name "§ciamramsey") sent a message, <code>{1}</code> would evaluate to "§ciamramsey". </li> <li> If a message was
+ * sent with a <code>null</code> sender, <code>{1}</code> would evaluate to "§3*§6Console". </li> </ul> </td> </tr> <tr>
+ * <td headers="var">{2}</td> <td headers="expl">The raw message.</td> <td headers="ex"> <ul> <li>If the message
+ * "§cHello!" is sent, <code>{2}</code> would evaluate to "§cHello!".</li> </ul> </td> </tr> <tr> <td
  * headers="var">{3}</td> <td headers="expl"> The color-filtered message. The message is passed through {@link
  * ChatColor#stripColor}, removing any color codes. </td> <td headers="ex"> <ul> <li>If the message "§cHello!" is sent,
- * <code>"{3}"</code> would evaluate to "Hello!".</li> </ul> </td> </tr> </tbody> </table> <br/>
- * <strong>Important</strong>: Variables <em>must</em> be wrapped in double-quotes. </p>
+ * <code>{3}</code> would evaluate to "Hello!".</li> </ul> </td> </tr> </tbody> </table> <br/> </p>
  */
 public class SimpleChannel implements Channel {
 

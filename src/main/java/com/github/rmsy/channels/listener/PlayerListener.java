@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /** Listener for player-related events. */
 public class PlayerListener implements Listener {
@@ -35,5 +36,10 @@ public class PlayerListener implements Listener {
         if (manager.getMembershipChannel(player) == null) {
             manager.setMembershipChannel(player, this.plugin.getDefaultChannel());
         }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerQuit(final PlayerQuitEvent event) {
+        this.plugin.getPlayerManager().removePlayer(event.getPlayer());
     }
 }

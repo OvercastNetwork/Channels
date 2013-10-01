@@ -45,4 +45,14 @@ public class SimplePlayerManager implements PlayerManager {
         this.playerMembershipMap.put(player, Preconditions.checkNotNull(membershipChannel, "channel"));
         ((SimpleChannel) membershipChannel).addMember(player);
     }
+
+    /**
+     * Removes the specified {@link org.bukkit.entity.Player} from the store.
+     *
+     * @param player The {@link org.bukkit.entity.Player} to be removed.
+     */
+    @Override
+    public void removePlayer(Player player) {
+        this.playerMembershipMap.remove(Preconditions.checkNotNull(player, "Player"));
+    }
 }

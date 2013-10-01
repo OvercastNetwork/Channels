@@ -19,4 +19,11 @@ public interface PlayerManager {
      * @param membershipChannel The channel the player is a member of.
      */
     public void setMembershipChannel(final Player player, Channel membershipChannel);
+
+    /**
+     * Removes the specified {@link Player} from the store.
+     *
+     * @param player The {@link Player} to be removed.
+     */
+    public void removePlayer(final Player player);
 }
