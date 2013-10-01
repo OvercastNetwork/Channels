@@ -9,10 +9,28 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Simple implementation of {@link Channel}. */
+/**
+ * Simple implementation of {@link Channel}. <p> This implementation of {@link Channel} supports several different
+ * custom format variables: <table border="1"> <tbody> <tr> <th id="var">Variable</th> <th id="expl">Meaning</th> <th
+ * id="ex">Examples</th> </tr> <tr> <td headers="var">{0}</td> <td headers="expl"> The sending {@link Player}'s name (or
+ * "Console", if the sending {@link Player} is <code>null</code>. </td> <td headers="ex"> <ul> <li> If player
+ * "iamramsey" sent a message, <code>"{0}"</code> would evaluate to "iamramsey". </li> <li> If a message was sent with a
+ * <code>null</code> sender, <code>"{0}"</code> would evaluate to "Console". </li> </ul> </td> </tr> <tr> <td
+ * headers="var">{1}</td> <td headers="expl"> The sending {@link Player}'s display name (or "§3*§6Console", if the
+ * sending {@link Player} is <code>null</code>. </td> <td headers="ex"> <ul> <li> If player "iamramsey" (with display
+ * name "§ciamramsey") sent a message, <code>"{1}"</code> would evaluate to "§ciamramsey". </li> <li> If a message was
+ * sent with a <code>null</code> sender, <code>"{1}"</code> would evaluate to "§3*§6Console". </li> </ul> </td> </tr>
+ * <tr> <td headers="var">{2}</td> <td headers="expl">The raw message.</td> <td headers="ex"> <ul> <li>If the message
+ * "§cHello!" is sent, <code>"{2}"</code> would evaluate to "§cHello!".</li> </ul> </td> </tr> <tr> <td
+ * headers="var">{3}</td> <td headers="expl"> The color-filtered message. The message is passed through {@link
+ * ChatColor#stripColor}, removing any color codes. </td> <td headers="ex"> <ul> <li>If the message "§cHello!" is sent,
+ * <code>"{3}"</code> would evaluate to "Hello!".</li> </ul> </td> </tr> </tbody> </table> <br/>
+ * <strong>Important</strong>: Variables <em>must</em> be wrapped in double-quotes. </p>
+ */
 public class SimpleChannel implements Channel {
 
     /** The members of the channel. */
@@ -21,8 +39,6 @@ public class SimpleChannel implements Channel {
     private final String permission;
     /** The format. */
     private String format;
-    /** Whether or not to strip colors. */
-    private boolean shouldStripColors;
 
     private SimpleChannel() {
         this.members = null;
@@ -32,13 +48,12 @@ public class SimpleChannel implements Channel {
     /**
      * Creates a new SimpleChannel.
      *
-     * @param format            The format to be applied to messages.
-     * @param shouldStripColors Whether or not to strip messages of colors.
-     * @param permission        The permission node that will be broadcast from this channel to.
+     * @param format     The format to be applied to messages.
+     * @param permission The permission node that will be broadcast from this channel to.
+     * @see SimpleChannel for detailed formatting information.
      */
-    public SimpleChannel(final String format, boolean shouldStripColors, final String permission) {
+    public SimpleChannel(final String format, final String permission) {
         this.format = Preconditions.checkNotNull(format, "format");
-        this.shouldStripColors = shouldStripColors;
         this.permission = Preconditions.checkNotNull(permission);
         this.members = new HashSet<>();
     }
@@ -55,12 +70,10 @@ public class SimpleChannel implements Channel {
     }
 
     /**
-     * Sets the channel's format (the string that appears before the message).</br><b>Note</b>: <code>%s</code> will be
-     * replaced with the sending user's display name. For example, if iamramsey had a display name of 'rmsy', and had a
-     * message directed to a channel with a format of <code>[Z] <%s> </code>, his message would be prepended in chat
-     * with "[Z] rmsy".
+     * Sets the channel's format (the string that appears before the message).
      *
      * @param format The format.
+     * @see SimpleChannel for detailed formatting information.
      */
     @Override
     public void setFormat(String format) {
@@ -78,26 +91,6 @@ public class SimpleChannel implements Channel {
     }
 
     /**
-     * Gets whether or not messages sent are stripped of color.
-     *
-     * @return Whether or not messages sent are stripped of color.
-     */
-    @Override
-    public boolean shouldStripColors() {
-        return this.shouldStripColors;
-    }
-
-    /**
-     * Sets whether or not messages sent are stripped of color.
-     *
-     * @param shouldStripColors Whether or not messages sent are stripped of color.
-     */
-    @Override
-    public void shouldStripColors(boolean shouldStripColors) {
-        this.shouldStripColors = shouldStripColors;
-    }
-
-    /**
      * Sends a new message to the channel.
      *
      * @param rawMessage The message to be sent.
@@ -106,21 +99,20 @@ public class SimpleChannel implements Channel {
      */
     @Override
     public boolean sendMessage(String rawMessage, @Nullable Player sender) {
-        String message = Preconditions.checkNotNull(rawMessage, "message");
-        String senderDisplayName;
-        if (sender != null) {
-            senderDisplayName = sender.getDisplayName();
-        } else {
-            senderDisplayName = ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
-        }
-        if (this.shouldStripColors) {
-            message = ChatColor.stripColor(message);
-        }
-        if (this.format.contains("%s")) {
-            message = String.format(this.format, senderDisplayName) + message;
-        } else {
-            message = this.format + message;
-        }
+        boolean senderPresent = sender != null;
+
+        String senderName = senderPresent ? sender.getName() : "Console";
+        String senderDisplayName = senderPresent ? sender.getDisplayName() : ChatColor.AQUA + "*" + ChatColor.GOLD + "Console";
+        String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
+
+        String message = MessageFormat.format(
+                this.format,
+                senderName,
+                senderDisplayName,
+                rawMessage,
+                sanitizedMessage
+        );
+
         ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender, this);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {

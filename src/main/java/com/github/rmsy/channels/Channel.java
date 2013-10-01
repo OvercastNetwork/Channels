@@ -16,10 +16,7 @@ public interface Channel {
     public String getFormat();
 
     /**
-     * Sets the channel's format (the string that appears before the message).</br><b>Note</b>: <code>%s</code> will be
-     * replaced with the sending user's display name. For example, if iamramsey had a display name of 'rmsy', and had a
-     * message directed to a channel with a format of <code>[Z] <%s> </code>, his message would be prepended in chat
-     * with "[Z] rmsy".
+     * Sets the channel's format.
      *
      * @param format The format.
      */
@@ -31,20 +28,6 @@ public interface Channel {
      * @return The users who are sending to this channel by default.
      */
     public ImmutableSet<Player> getMembers();
-
-    /**
-     * Gets whether or not messages sent are stripped of color.
-     *
-     * @return Whether or not messages sent are stripped of color.
-     */
-    public boolean shouldStripColors();
-
-    /**
-     * Sets whether or not messages sent are stripped of color.
-     *
-     * @param shouldStripColors Whether or not messages sent are stripped of color.
-     */
-    public void shouldStripColors(boolean shouldStripColors);
 
     /**
      * Sends a new message to the channel.
