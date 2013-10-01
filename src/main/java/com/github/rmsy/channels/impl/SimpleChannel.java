@@ -101,7 +101,7 @@ public class SimpleChannel implements Channel {
         boolean senderPresent = sender != null;
 
         String senderName = senderPresent ? sender.getName() : "Console";
-        String senderDisplayName = senderPresent ? sender.getDisplayName() : ChatColor.AQUA + "*" + ChatColor.GOLD + "Console";
+        String senderDisplayName = senderPresent ? sender.getDisplayName() : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
         String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
 
         String message = MessageFormat.format(
