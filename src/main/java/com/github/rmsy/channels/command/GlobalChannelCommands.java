@@ -32,9 +32,9 @@ public final class GlobalChannelCommands {
                     Channel globalChannel = plugin.getGlobalChannel();
                     playerManager.setMembershipChannel(player, globalChannel);
                     if (!oldChannel.equals(globalChannel)) {
-                        sender.sendMessage(ChatColor.YELLOW + "Changed default channel to global chat.");
+                        sender.sendMessage(ChatColor.YELLOW + ChannelsPlugin.get().getConfig().getString("global-chat.switch.success-msg", "Changed default channel to global chat."));
                     } else {
-                        throw new CommandException("Global chat is already your default channel.");
+                        throw new CommandException(ChannelsPlugin.get().getConfig().getString("global-chat.switch.no-change-msg", "Global chat is already your default channel."));
                     }
                 } else {
                     throw new CommandUsageException("You must provide a message.", "/g <message...>");
@@ -49,7 +49,7 @@ public final class GlobalChannelCommands {
             }
             ChannelsPlugin.get().getGlobalChannel().sendMessage(arguments.getJoinedStrings(0), sendingPlayer);
             if (!sender.hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE)) {
-                sender.sendMessage(ChatColor.YELLOW + "Message sent.");
+                sender.sendMessage(ChatColor.YELLOW + ChannelsPlugin.get().getConfig().getString("global-chat.message-success-msg", "Message sent."));
             }
         } else {
             throw new CommandPermissionsException();

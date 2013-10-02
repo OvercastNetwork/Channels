@@ -12,6 +12,7 @@ import com.sk89q.minecraft.util.commands.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -86,7 +87,17 @@ public class ChannelsPlugin extends JavaPlugin {
     public void onEnable() {
         ChannelsPlugin.plugin = this;
 
-        this.globalChannel = new SimpleChannel(ChatColor.WHITE + "<{1}" + ChatColor.RESET + ChatColor.WHITE + ">: {3}", ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE);
+        Configuration config = this.getConfig();
+        config.options().copyDefaults(true);
+        this.saveConfig();
+
+        this.globalChannel = new SimpleChannel(
+                config.getString(
+                        "global-chat.format",
+                        ChatColor.WHITE + "<{1}" + ChatColor.RESET + ChatColor.WHITE + ">: {3}"
+                ),
+                ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE
+        );
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
