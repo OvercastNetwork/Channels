@@ -98,6 +98,7 @@ public class ChannelsPlugin extends JavaPlugin {
                 ),
                 ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE
         );
+        this.defaultChannel = this.globalChannel;
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
