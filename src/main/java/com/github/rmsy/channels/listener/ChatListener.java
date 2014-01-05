@@ -27,7 +27,7 @@ public class ChatListener implements Listener {
         this.plugin = Preconditions.checkNotNull(plugin, "plugin");
     }
 
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(final AsyncPlayerChatEvent event) {
         Preconditions.checkNotNull(event, "event").setCancelled(true);
         Player sender = event.getPlayer();
