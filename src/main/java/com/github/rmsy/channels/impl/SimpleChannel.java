@@ -104,15 +104,16 @@ public class SimpleChannel implements Channel {
         String senderDisplayName = senderPresent ? sender.getDisplayName() : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
         String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
 
+        ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender, this);
+
         String message = MessageFormat.format(
                 this.format,
                 senderName,
                 senderDisplayName,
-                rawMessage,
+                event.getMessage(),
                 sanitizedMessage
         );
 
-        ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender, this);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Bukkit.broadcast(message, this.permission);
