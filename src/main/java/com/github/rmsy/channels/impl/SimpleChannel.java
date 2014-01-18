@@ -105,6 +105,7 @@ public class SimpleChannel implements Channel {
         String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
 
         ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender, this);
+        Bukkit.getPluginManager().callEvent(event);
 
         String message = MessageFormat.format(
                 this.format,
@@ -114,7 +115,6 @@ public class SimpleChannel implements Channel {
                 sanitizedMessage
         );
 
-        Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Bukkit.broadcast(message, this.permission);
             return true;
