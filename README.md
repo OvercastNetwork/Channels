@@ -1,4 +1,4 @@
-Channels [![Build Status](https://travis-ci.org/rmsy/Channels.png?branch=master)](https://travis-ci.org/rmsy/Channels)
+Channels [![Build Status](https://travis-ci.org/OvercastNetwork/Channels.png?branch=master)](https://travis-ci.org/OvercastNetwork/Channels)
 ===========
 
 
