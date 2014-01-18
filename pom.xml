@@ -10,7 +10,7 @@
 
     <name>Channels</name>
     <description>Channels is a simple chat channel plugin and API.</description>
-    <url>https://github.com/rmsy/Channels</url>
+    <url>https://github.com/OvercastNetwork/Channels</url>
     <inceptionYear>2013</inceptionYear>
 
     <licenses>
@@ -40,18 +40,18 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/rmsy/Channels.git</connection>
-        <url>https://github.com/rmsy/Channels</url>
+        <connection>scm:git:https://github.com/OvercastNetwork/Channels.git</connection>
+        <url>https://github.com/OvercastNetwork/Channels</url>
     </scm>
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/rmsy/Channels/issues</url>
+        <url>https://github.com/OvercastNetwork/Channels/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/rmsy/Channels</url>
+        <url>https://travis-ci.org/OvercastNetwork/Channels</url>
     </ciManagement>
 
     <properties>
@@ -95,7 +95,6 @@
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>
             <version>0.5-SNAPSHOT</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
