@@ -118,6 +118,15 @@ public class ChannelsPlugin extends JavaPlugin {
     }
 
     /**
+     * Sets the global channel.
+     *
+     * @param channel The new channel.
+     */
+    public void setGlobalChannel(Channel channel) {
+        this.globalChannel = Preconditions.checkNotNull(channel, "Channel");
+    }
+
+    /**
      * Gets the channel that newly-connected players will be added to.
      *
      * @return The channel.
