@@ -23,7 +23,7 @@ public final class GlobalChannelCommands {
     @Console
     public static void globalChannelCommand(final CommandContext arguments, final CommandSender sender) throws CommandException {
         if (Preconditions.checkNotNull(arguments, "arguments").argsLength() == 0) {
-            if (Preconditions.checkNotNull(sender, "sender").hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE)) {
+            if (Preconditions.checkNotNull(sender, "sender").hasPermission(ChannelsPlugin.GLOBAL_CHANNEL_SEND_NODE)) {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     ChannelsPlugin plugin = ChannelsPlugin.get();
