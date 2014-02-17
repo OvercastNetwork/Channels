@@ -98,29 +98,32 @@ public class SimpleChannel implements Channel {
      */
     @Override
     public boolean sendMessage(String rawMessage, @Nullable Player sender) {
-        boolean senderPresent = sender != null;
-
-        String senderName = senderPresent ? sender.getName() : "Console";
-        String senderDisplayName = senderPresent ? sender.getDisplayName() : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
-        String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
-
         ChannelMessageEvent event = new ChannelMessageEvent(rawMessage, sender, this);
         Bukkit.getPluginManager().callEvent(event);
 
-        String message = MessageFormat.format(
-                this.format,
-                senderName,
-                senderDisplayName,
-                event.getMessage(),
-                sanitizedMessage
-        );
-
-        if (!event.isCancelled()) {
-            Bukkit.broadcast(message, this.permission);
-            return true;
-        } else {
+        if(event.isCancelled()) {
             return false;
         }
+
+        boolean senderPresent = sender != null;
+        String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
+
+        for(Player viewer : Bukkit.getOnlinePlayers()) {
+            if(viewer.hasPermission(this.permission)) {
+                String senderName = senderPresent ? sender.getName(viewer) : "Console";
+                String senderDisplayName = senderPresent ? sender.getDisplayName(viewer) : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
+
+                viewer.sendMessage(MessageFormat.format(
+                    this.format,
+                    senderName,
+                    senderDisplayName,
+                    event.getMessage(),
+                    sanitizedMessage
+                ));
+            }
+        }
+
+        return true;
     }
 
     /**
