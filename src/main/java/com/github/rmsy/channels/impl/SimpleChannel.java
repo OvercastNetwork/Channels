@@ -6,6 +6,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
@@ -108,22 +109,29 @@ public class SimpleChannel implements Channel {
         boolean senderPresent = sender != null;
         String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
 
+        this.sendMessageToViewer(sender, Bukkit.getConsoleSender(), sanitizedMessage, event);
+
         for(Player viewer : Bukkit.getOnlinePlayers()) {
             if(viewer.hasPermission(this.permission)) {
-                String senderName = senderPresent ? sender.getName(viewer) : "Console";
-                String senderDisplayName = senderPresent ? sender.getDisplayName(viewer) : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
-
-                viewer.sendMessage(MessageFormat.format(
-                    this.format,
-                    senderName,
-                    senderDisplayName,
-                    event.getMessage(),
-                    sanitizedMessage
-                ));
+                this.sendMessageToViewer(sender, viewer, sanitizedMessage, event);
             }
         }
 
         return true;
+    }
+    public void sendMessageToViewer(Player sender, CommandSender viewer, String sanitizedMessage, ChannelMessageEvent event) {
+        boolean senderPresent = sender != null;
+
+        String senderName = senderPresent ? sender.getName(viewer) : "Console";
+        String senderDisplayName = senderPresent ? sender.getDisplayName(viewer) : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
+
+        viewer.sendMessage(MessageFormat.format(
+                this.format,
+                senderName,
+                senderDisplayName,
+                event.getMessage(),
+                sanitizedMessage
+        ));
     }
 
     /**
