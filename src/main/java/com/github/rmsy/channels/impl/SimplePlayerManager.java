@@ -11,8 +11,11 @@ import java.util.Map;
 /** Simple implementation of {@link PlayerManager}. */
 public class SimplePlayerManager implements PlayerManager {
 
-    /** Players mapped to their membership channels. */
-    private final Map<Player, Channel> playerMembershipMap;
+    /**
+     * Players mapped to their membership channels.
+     * Player.getName() -> Channel
+     */
+    private final Map<String, Channel> playerMembershipMap;
 
     /** Creates a new SimplePlayerManager. */
     public SimplePlayerManager() {
@@ -27,7 +30,7 @@ public class SimplePlayerManager implements PlayerManager {
      */
     @Override
     public Channel getMembershipChannel(final Player player) {
-        return this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
+        return this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player").getName());
     }
 
     /**
@@ -42,7 +45,7 @@ public class SimplePlayerManager implements PlayerManager {
         if (oldChannel != null) {
             oldChannel.removeMember(player);
         }
-        this.playerMembershipMap.put(player, Preconditions.checkNotNull(membershipChannel, "channel"));
+        this.playerMembershipMap.put(player.getName(), Preconditions.checkNotNull(membershipChannel, "channel"));
         ((SimpleChannel) membershipChannel).addMember(player);
     }
 
@@ -53,6 +56,6 @@ public class SimplePlayerManager implements PlayerManager {
      */
     @Override
     public void removePlayer(Player player) {
-        this.playerMembershipMap.remove(Preconditions.checkNotNull(player, "Player"));
+        this.playerMembershipMap.remove(Preconditions.checkNotNull(player, "Player").getName());
     }
 }

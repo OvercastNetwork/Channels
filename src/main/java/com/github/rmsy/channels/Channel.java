@@ -27,7 +27,7 @@ public interface Channel {
      *
      * @return The users who are sending to this channel by default.
      */
-    public ImmutableSet<Player> getMembers();
+    public ImmutableSet<String> getMembers();
 
     /**
      * Sends a new message to the channel.

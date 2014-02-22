@@ -33,8 +33,11 @@ import java.util.Set;
  */
 public class SimpleChannel implements Channel {
 
-    /** The members of the channel. */
-    private final Set<Player> members;
+    /**
+     * The members of the channel.
+     * Stored by a call to getName() on that Player
+     */
+    private final Set<String> members;
     /** The permission node that will be broadcast from this channel to. */
     private final String permission;
     /** The format. */
@@ -86,7 +89,7 @@ public class SimpleChannel implements Channel {
      * @return The users who are sending to this channel by default.
      */
     @Override
-    public final ImmutableSet<Player> getMembers() {
+    public final ImmutableSet<String> getMembers() {
         return ImmutableSet.copyOf(this.members);
     }
 
@@ -119,6 +122,7 @@ public class SimpleChannel implements Channel {
 
         return true;
     }
+
     public void sendMessageToViewer(Player sender, CommandSender viewer, String sanitizedMessage, ChannelMessageEvent event) {
         boolean senderPresent = sender != null;
 
@@ -172,6 +176,6 @@ public class SimpleChannel implements Channel {
      * @param member The user.
      */
     protected final void addMember(Player member) {
-        this.members.add(Preconditions.checkNotNull(member, "member"));
+        this.members.add(Preconditions.checkNotNull(member, "member").getName());
     }
 }
