@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 
 /** Listener for chat-related events. */
 public class ChatListener implements Listener {
@@ -27,8 +27,9 @@ public class ChatListener implements Listener {
         this.plugin = Preconditions.checkNotNull(plugin, "plugin");
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onPlayerChat(final AsyncPlayerChatEvent event) {
+    public void onPlayerChat(final PlayerChatEvent event) {
         Preconditions.checkNotNull(event, "event").setCancelled(true);
         Player sender = event.getPlayer();
         this.plugin.getPlayerManager().getMembershipChannel(sender).sendMessage(event.getMessage(), sender);
