@@ -33,10 +33,7 @@ import java.util.Set;
  */
 public class SimpleChannel implements Channel {
 
-    /**
-     * The members of the channel.
-     * Stored by a call to getName() on that Player
-     */
+    /** The members of the channel (stored by their names) */
     private final Set<String> members;
     /** The permission node that will be broadcast from this channel to. */
     private final String permission;

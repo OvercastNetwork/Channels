@@ -11,10 +11,7 @@ import java.util.Map;
 /** Simple implementation of {@link PlayerManager}. */
 public class SimplePlayerManager implements PlayerManager {
 
-    /**
-     * Players mapped to their membership channels.
-     * Player.getName() -> Channel
-     */
+    /** Player names mapped to their membership channel */
     private final Map<String, Channel> playerMembershipMap;
 
     /** Creates a new SimplePlayerManager. */
