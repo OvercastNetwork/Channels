@@ -2,6 +2,7 @@ package com.github.rmsy.channels;
 
 import com.google.common.collect.ImmutableSet;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +45,7 @@ public interface Channel {
      *
      * @return The permission node that is required for listening on this channel.
      */
-    public String getListeningPermission();
+    public Permission getListeningPermission();
 
     /**
      * Broadcasts a message to the channel.

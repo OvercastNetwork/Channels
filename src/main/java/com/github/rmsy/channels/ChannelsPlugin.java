@@ -14,6 +14,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.event.HandlerList;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ChannelsPlugin extends JavaPlugin {
@@ -96,7 +98,7 @@ public class ChannelsPlugin extends JavaPlugin {
                         "global-chat.format",
                         ChatColor.WHITE + "<{1}" + ChatColor.RESET + ChatColor.WHITE + ">: {3}"
                 ),
-                ChannelsPlugin.GLOBAL_CHANNEL_RECEIVE_NODE
+                new Permission(ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE, PermissionDefault.TRUE)
         );
         this.defaultChannel = this.globalChannel;
         this.playerManager = new SimplePlayerManager();

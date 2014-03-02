@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import javax.annotation.Nullable;
 import java.text.MessageFormat;
@@ -36,7 +37,7 @@ public class SimpleChannel implements Channel {
     /** The members of the channel (stored by their names) */
     private final Set<String> members;
     /** The permission node that will be broadcast from this channel to. */
-    private final String permission;
+    private final Permission permission;
     /** The format. */
     private String format;
 
@@ -52,7 +53,7 @@ public class SimpleChannel implements Channel {
      * @param permission The permission node that will be broadcast from this channel to.
      * @see SimpleChannel for detailed formatting information.
      */
-    public SimpleChannel(final String format, final String permission) {
+    public SimpleChannel(final String format, final Permission permission) {
         this.format = Preconditions.checkNotNull(format, "format");
         this.permission = Preconditions.checkNotNull(permission);
         this.members = new HashSet<>();
@@ -142,7 +143,7 @@ public class SimpleChannel implements Channel {
      * @return The permission node that is required for listening on this channel.
      */
     @Override
-    public String getListeningPermission() {
+    public Permission getListeningPermission() {
         return this.permission;
     }
 
@@ -153,7 +154,7 @@ public class SimpleChannel implements Channel {
      */
     @Override
     public void broadcast(final String message) {
-        Bukkit.broadcast(Preconditions.checkNotNull(message, "message"), this.permission);
+        Bukkit.broadcast(Preconditions.checkNotNull(message, "message"), this.permission.getName());
     }
 
     /**
