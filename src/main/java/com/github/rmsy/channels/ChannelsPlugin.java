@@ -1,6 +1,9 @@
 package com.github.rmsy.channels;
 
+import com.github.rmsy.channels.command.AdminChannelCommands;
 import com.github.rmsy.channels.command.GlobalChannelCommands;
+import com.github.rmsy.channels.config.Config;
+import com.github.rmsy.channels.impl.AdminChannel;
 import com.github.rmsy.channels.impl.SimpleChannel;
 import com.github.rmsy.channels.impl.SimplePlayerManager;
 import com.github.rmsy.channels.listener.ChatListener;
@@ -26,6 +29,8 @@ public class ChannelsPlugin extends JavaPlugin {
     private static ChannelsPlugin plugin;
     /** The global channel. */
     private Channel globalChannel;
+    /** The admin channel. */
+    private Channel adminChannel;
     /** The default channel. */
     private Channel defaultChannel;
     /** The commands manager. */
@@ -100,6 +105,7 @@ public class ChannelsPlugin extends JavaPlugin {
                 ),
                 new Permission(ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE, PermissionDefault.TRUE)
         );
+        this.adminChannel = new AdminChannel(Config.Chat.Admin.format(), Config.Chat.Admin.PERM_SEND);
         this.defaultChannel = this.globalChannel;
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
@@ -108,6 +114,7 @@ public class ChannelsPlugin extends JavaPlugin {
         this.commands = new BukkitCommandsManager();
         this.commandsRegistration = new CommandsManagerRegistration(this, this.commands);
         this.commandsRegistration.register(GlobalChannelCommands.class);
+        this.commandsRegistration.register(AdminChannelCommands.class);
     }
 
     /**
@@ -117,6 +124,15 @@ public class ChannelsPlugin extends JavaPlugin {
      */
     public Channel getGlobalChannel() {
         return this.globalChannel;
+    }
+
+    /**
+     * Gets the global channel.
+     *
+     * @return The global channel.
+     */
+    public Channel getAdminChannel() {
+        return this.adminChannel;
     }
 
     /**

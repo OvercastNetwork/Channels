@@ -6,3 +6,9 @@ global-chat:
     success-msg: Changed default channel to global chat.
     no-change-msg: Global chat is already your default channel.
   message-success-msg: Message sent.
+admin-chat:
+  format: '`f[`6A`f] {1}`r`f: {2}'
+  switch:
+    success-msg: Changed default channel to administrator chat.
+    no-change-msg: Administrator chat is already your default channel.
+  message-success-msg: Message sent.
