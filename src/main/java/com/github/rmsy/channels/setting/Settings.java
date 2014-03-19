@@ -1,5 +1,6 @@
 package com.github.rmsy.channels.setting;
 
+import com.github.rmsy.channels.ChannelsPlugin;
 import me.anxuiz.settings.Setting;
 import me.anxuiz.settings.SettingBuilder;
 import me.anxuiz.settings.SettingCallbackManager;
@@ -14,7 +15,7 @@ public class Settings {
         SettingCallbackManager callbacks = PlayerSettings.getCallbackManager();
 
         registry.register(DEFAULT_CHANNEL);
-        callbacks.addCallback(DEFAULT_CHANNEL, new DefaultChannelCallback());
+        callbacks.addCallback(DEFAULT_CHANNEL, new DefaultChannelCallback(ChannelsPlugin.get()));
     }
 
     public static final Setting DEFAULT_CHANNEL = new SettingBuilder()

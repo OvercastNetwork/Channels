@@ -49,6 +49,7 @@ public class PlayerListener implements Listener {
             case ADMIN_CHAT:
                 newChannel = this.plugin.getAdminChannel();
                 break;
+            // Let PGM handle team-chat
             case TEAM_CHAT:
             case NONE:
             default:
