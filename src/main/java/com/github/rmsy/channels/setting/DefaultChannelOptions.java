@@ -10,8 +10,5 @@ public enum DefaultChannelOptions {
     TEAM_CHAT,
 
     @Name("admin-chat")
-    ADMIN_CHAT,
-
-    @Name("none")
-    NONE;
+    ADMIN_CHAT;
 }
