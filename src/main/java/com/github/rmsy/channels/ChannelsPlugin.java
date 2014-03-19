@@ -8,6 +8,7 @@ import com.github.rmsy.channels.impl.SimpleChannel;
 import com.github.rmsy.channels.impl.SimplePlayerManager;
 import com.github.rmsy.channels.listener.ChatListener;
 import com.github.rmsy.channels.listener.PlayerListener;
+import com.github.rmsy.channels.setting.Settings;
 import com.google.common.base.Preconditions;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
@@ -110,6 +111,8 @@ public class ChannelsPlugin extends JavaPlugin {
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+
+        Settings.register();
 
         this.commands = new BukkitCommandsManager();
         this.commandsRegistration = new CommandsManagerRegistration(this, this.commands);
