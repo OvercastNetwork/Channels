@@ -23,9 +23,9 @@ permissions:
           children:
               channels.admin.send: true
               channels.admin.receive: true
-    channels.global.receive:
+    channels.admin.receive:
         description: Allows the user to receive messages from the admin channel.
         default: op
-    channels.global.send:
+    channels.admin.send:
         description: Allows the user to send messages to the admin channel.
         default: op
