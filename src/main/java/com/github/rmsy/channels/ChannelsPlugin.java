@@ -127,9 +127,9 @@ public class ChannelsPlugin extends JavaPlugin {
     }
 
     /**
-     * Gets the global channel.
+     * Gets the admin channel.
      *
-     * @return The global channel.
+     * @return The admin channel.
      */
     public Channel getAdminChannel() {
         return this.adminChannel;
