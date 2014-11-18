@@ -40,6 +40,7 @@ public class SimpleChannel implements Channel {
     private final Permission permission;
     /** The format. */
     private String format;
+    private String broadcastFormat;
 
     private SimpleChannel() {
         this.members = null;
@@ -53,10 +54,15 @@ public class SimpleChannel implements Channel {
      * @param permission The permission node that will be broadcast from this channel to.
      * @see SimpleChannel for detailed formatting information.
      */
-    public SimpleChannel(final String format, final Permission permission) {
+    public SimpleChannel(final String format, final String broadcastFormat, final Permission permission) {
         this.format = Preconditions.checkNotNull(format, "format");
+        this.broadcastFormat = Preconditions.checkNotNull(broadcastFormat, "broadcast format");
         this.permission = Preconditions.checkNotNull(permission);
         this.members = new HashSet<>();
+    }
+
+    public SimpleChannel(final String format, final Permission permission) {
+        this(format, format, permission);
     }
 
     /**
@@ -79,6 +85,16 @@ public class SimpleChannel implements Channel {
     @Override
     public void setFormat(String format) {
         this.format = Preconditions.checkNotNull(format, "format");
+    }
+
+    @Override
+    public String getBroadcastFormat() {
+        return this.broadcastFormat;
+    }
+
+    @Override
+    public void setBroadcastFormat(String format) {
+        this.broadcastFormat = Preconditions.checkNotNull(format, "format");
     }
 
     /**
@@ -107,7 +123,6 @@ public class SimpleChannel implements Channel {
             return false;
         }
 
-        boolean senderPresent = sender != null;
         String sanitizedMessage = ChatColor.stripColor(Preconditions.checkNotNull(rawMessage, "Message"));
 
         this.sendMessageToViewer(sender, Bukkit.getConsoleSender(), sanitizedMessage, event);
@@ -126,9 +141,10 @@ public class SimpleChannel implements Channel {
 
         String senderName = senderPresent ? sender.getName(viewer) : "Console";
         String senderDisplayName = senderPresent ? sender.getDisplayName(viewer) : ChatColor.GOLD + "*" + ChatColor.AQUA + "Console";
+        String format = senderPresent ? this.format : this.broadcastFormat;
 
         viewer.sendMessage(MessageFormat.format(
-                this.format,
+                format,
                 senderName,
                 senderDisplayName,
                 event.getMessage(),
@@ -154,7 +170,7 @@ public class SimpleChannel implements Channel {
      */
     @Override
     public void broadcast(final String message) {
-        Bukkit.broadcast(Preconditions.checkNotNull(message, "message"), this.permission.getName());
+        this.sendMessage(message, null);
     }
 
     /**

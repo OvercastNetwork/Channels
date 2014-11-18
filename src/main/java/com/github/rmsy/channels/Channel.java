@@ -22,6 +22,20 @@ public interface Channel {
      * @param format The format.
      */
     public void setFormat(String format);
+    /**
+     * Gets the channel's broadcast format.
+     *
+     * @return The channel's format.
+     * @see #setFormat(String)
+     */
+    public String getBroadcastFormat();
+
+    /**
+     * Sets the channel's broadcast format.
+     *
+     * @param format The format.
+     */
+    public void setBroadcastFormat(String format);
 
     /**
      * Gets the users who are sending to this channel by default.
