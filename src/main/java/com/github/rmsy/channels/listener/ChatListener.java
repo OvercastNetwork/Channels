@@ -1,5 +1,6 @@
 package com.github.rmsy.channels.listener;
 
+import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.ChannelsPlugin;
 import com.google.common.base.Preconditions;
 import org.bukkit.entity.Player;
@@ -30,8 +31,11 @@ public class ChatListener implements Listener {
     @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(final PlayerChatEvent event) {
-        Preconditions.checkNotNull(event, "event").setCancelled(true);
         Player sender = event.getPlayer();
-        this.plugin.getPlayerManager().getMembershipChannel(sender).sendMessage(event.getMessage(), sender);
+        Channel channel = this.plugin.getPlayerManager().getMembershipChannel(sender);
+        if(channel != null) {
+            event.setCancelled(true);
+            channel.sendMessage(event.getMessage(), sender);
+        }
     }
 }
