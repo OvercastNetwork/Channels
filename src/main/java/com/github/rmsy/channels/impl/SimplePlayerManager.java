@@ -38,7 +38,7 @@ public class SimplePlayerManager implements PlayerManager {
      */
     @Override
     public void setMembershipChannel(Player player, Channel membershipChannel) {
-        SimpleChannel oldChannel = (SimpleChannel) this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player"));
+        SimpleChannel oldChannel = (SimpleChannel) this.playerMembershipMap.get(Preconditions.checkNotNull(player, "player").getName());
         if (oldChannel != null) {
             oldChannel.removeMember(player);
         }

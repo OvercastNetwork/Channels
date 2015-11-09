@@ -9,14 +9,19 @@ import com.google.common.base.Preconditions;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.annotation.Nullable;
 
 public class ChannelsPlugin extends JavaPlugin {
     public static final String GLOBAL_CHANNEL_PARENT_NODE = "channels.global";
@@ -93,13 +98,12 @@ public class ChannelsPlugin extends JavaPlugin {
         config.options().copyDefaults(true);
         this.saveConfig();
 
-        this.globalChannel = new SimpleChannel(
-                config.getString(
-                        "global-chat.format",
-                        ChatColor.WHITE + "<{1}" + ChatColor.RESET + ChatColor.WHITE + ">: {3}"
-                ),
-                new Permission(ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE, PermissionDefault.TRUE)
-        );
+        this.globalChannel = new SimpleChannel(new Permission(ChannelsPlugin.GLOBAL_CHANNEL_PARENT_NODE, PermissionDefault.TRUE)) {
+            @Override
+            public BaseComponent getFormat(BaseComponent message, @Nullable Player sender, CommandSender receiver, boolean broadcast) {
+                return broadcast ? new TextComponent(new TextComponent("[Broadcast] "), message) : new TextComponent(new TextComponent("<"), new TextComponent(sender != null ? sender.getDisplayName(receiver) : "Console"), new TextComponent(">: "), message);
+            }
+        };
         this.defaultChannel = this.globalChannel;
         this.playerManager = new SimplePlayerManager();
         Bukkit.getPluginManager().registerEvents(new ChatListener(this), this);

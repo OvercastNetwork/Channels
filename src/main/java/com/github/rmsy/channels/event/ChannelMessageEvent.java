@@ -3,6 +3,7 @@ package com.github.rmsy.channels.event;
 import com.github.rmsy.channels.Channel;
 import com.github.rmsy.channels.ChannelsEvent;
 import com.google.common.base.Preconditions;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
@@ -18,7 +19,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
     /** The message sender, or null for console. */
     private @Nullable final Player sender;
     /** The message to be sent. */
-    private String message;
+    private BaseComponent message;
     /** Whether or not the event is cancelled. */
     private boolean cancelled = false;
 
@@ -28,7 +29,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      * @param message The message.
      * @param sender  The sender, or null for console.
      */
-    public ChannelMessageEvent(String message, @Nullable final Player sender, Channel channel) {
+    public ChannelMessageEvent(BaseComponent message, @Nullable final Player sender, Channel channel) {
         this.message = Preconditions.checkNotNull(message, "message");
         this.sender = sender;
         this.channel = Preconditions.checkNotNull(channel, "Channel");
@@ -48,7 +49,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @return The message to be sent.
      */
-    public String getMessage() {
+    public BaseComponent getMessage() {
         return message;
     }
 
@@ -57,7 +58,7 @@ public final class ChannelMessageEvent extends ChannelsEvent implements Cancella
      *
      * @param message The message to be sent.
      */
-    public void setMessage(String message) {
+    public void setMessage(BaseComponent message) {
         this.message = Preconditions.checkNotNull(message, "message");
     }
 
