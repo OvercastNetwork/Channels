@@ -6,7 +6,7 @@
 
     <groupId>com.github.rmsy.Channels</groupId>
     <artifactId>Channels</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.9-SNAPSHOT</version>
 
     <name>Channels</name>
     <description>Channels is a simple chat channel plugin and API.</description>
@@ -90,13 +90,13 @@
         <dependency>
             <groupId>tc.oc</groupId>
             <artifactId>sportbukkit-api</artifactId>
-            <version>1.8.7-R0.1-SNAPSHOT</version>
+            <version>1.9-R0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>
-            <version>0.6-SNAPSHOT</version>
+            <version>1.9-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
